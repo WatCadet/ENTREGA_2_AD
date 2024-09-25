@@ -13,6 +13,7 @@ author:
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(knitr)
+library(readr)
 ```
 
 Análisis de las respuestas a la encuesta sobre salud vocal. 
@@ -23,7 +24,24 @@ Hacemos una lectura y limpieza de los datos. Describimos los datos y presentamos
 
 ## Lectura y limpieza de los datos
 
+Leemos los datos en 
+
+```{r, echo= FALSE, message=FALSE}
+data_saludvocal <- read_csv(file = ".csv", sep=)
+```
+
+Visualizamos el conjunto de datos. 
+
+```{r}
+data_saludvocal %>% 
+  glimpse
+```
+
 ## Descripción de los datos
+
+Su dimensión es de ? filas y ? variables.
+
+La descripción de las variables es la siguiente:
 
 ## Objetivos
 
