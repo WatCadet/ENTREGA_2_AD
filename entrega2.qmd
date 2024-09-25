@@ -7,13 +7,21 @@ author:
   - Irene Rodríguez
 ---
 
-[Ver en GitHub]()
+[Enlace al repositorio de Github](https://github.com/WatCadet/ENTREGA_2_AD)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(knitr)
 ```
+
+Análisis de las respuestas a la encuesta sobre salud vocal. 
+
+El investigador David Corvacho, especialista en Medicina del Trabajo, presenta la encuesta que ha diseñado para responder a los objetivos de su estudio sobre salud vocal.
+
+Hacemos una lectura y limpieza de los datos. Describimos los datos y presentamos los objetivos de estudio. Analizamos los datos, mostrando las medidas y gráficos que permitan responder a las preguntas planteadas por el investigador, y obtenemos conclusiones.
+
+## Lectura y limpieza de los datos
 
 ## Descripción de los datos
 
