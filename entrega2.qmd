@@ -1,0 +1,24 @@
+---
+title: "ENTREGA 2 Análisis de Datos"
+format: html
+author: 
+  - Carlos Aliño
+  - Dídac Capó
+  - Irene Rodríguez
+---
+
+[Ver en GitHub]()
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+```
+
+## Descripción de los datos
+
+## Objetivos
+
+## Análisis
+
+## Conclusiones
