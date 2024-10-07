@@ -9,13 +9,6 @@ author:
 
 [Enlace al repositorio de Github](https://github.com/WatCadet/ENTREGA_2_AD)
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(knitr)
-library(readr)
-```
-
 Análisis de las respuestas a la encuesta sobre salud vocal. 
 
 El investigador David Corvacho, especialista en Medicina del Trabajo, presenta la encuesta que ha diseñado para responder a los objetivos de su estudio sobre salud vocal.
@@ -24,151 +17,119 @@ Hacemos una lectura y limpieza de los datos. Describimos los datos y presentamos
 
 ## Lectura y limpieza de los datos
 
-Leemos los datos. Intenamos crear una columna nueva SCORE que nos de la calidad.
-
-```{r, echo= FALSE, message=FALSE}
-data_saludvocal <- read_csv2(file = "Salut_Vocal_anonimizada.csv")
-
-var = data_saludvocal$`Em sent desplaçat de les converses per la meva veu`
-var = as.factor(var)
-levels(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`Em sent desplaçat de les converses per la meva veu` = var %>% 
-  as.numeric()
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(readr)
+library(hrbrthemes)
+library(janitor)
+library(viridis)
 ```
 
+## Lectura y limpieza de los datos
 
-```{r, echo= FALSE, message=FALSE}
-var = data_saludvocal$`La gent em pregunta: què et passa amb la veu?`
-var = as.factor(var)
-levels(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`La gent em pregunta: què et passa amb la veu?` = var %>% 
-  as.numeric()
-```
-
-
-```{r, echo= FALSE, message=FALSE}
-var = data_saludvocal$`La meva veu em fa sentir certa minusvalidesa`
-var = as.factor(var)
-levels(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`La meva veu em fa sentir certa minusvalidesa` = var %>% 
-  as.numeric()
-```
-
-
-```{r, echo= FALSE, message=FALSE}
-var = data_saludvocal$`La meva veu em molesta`
-var = as.factor(var)
-levels(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`La meva veu em molesta` = var %>% 
-  as.numeric()
-```
-
-
-```{r, echo= FALSE, message=FALSE}
-var = data_saludvocal$`La gent em sent amb dificultat a causa de la meva veu`
-var = as.factor(var)
-levels(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`La gent em sent amb dificultat a causa de la meva veu` = var %>% 
-  as.numeric()
-```
-
-
-```{r, echo= FALSE, message=FALSE}
-var = data_saludvocal$`El meu problema amb la veu afecta el rendiment laboral`
-var = as.factor(var)
-levels(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`El meu problema amb la veu afecta el rendiment laboral` = var %>% 
-  as.numeric()
-```
-
-
-```{r, echo= FALSE, message=FALSE}
-var = data_saludvocal$`Not que necessit tensar la gola (gargamella) per produir la veu`
-var = as.factor(var)
-levels(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`Not que necessit tensar la gola (gargamella) per produir la veu` = var %>% 
-  as.numeric()
-```
-
-
-```{r, echo= FALSE, message=FALSE}
-var = data_saludvocal$`La qualitat de la meva veu és imprevisible`
-var = as.factor(var)
-levels(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`La qualitat de la meva veu és imprevisible` = var %>% 
-  as.numeric()
-```
-
-
-```{r, echo= FALSE, message=FALSE}
-var = data_saludvocal$`La gent no m'entén en llocs sorollosos`
-var = as.factor(var)
-levels(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`La gent no m'entén en llocs sorollosos` = var %>% 
-  as.numeric()
-```
-
-
-```{r, echo= FALSE, message=FALSE}
-var = data_saludvocal$`Em sent desplaçat de les converses per la meva veu`
-var = as.factor(var)
-levels(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`Em sent desplaçat de les converses per la meva veu` = var 
-```
-
-```{r, echo= FALSE, message=FALSE}
-var = data_saludvocal$`Els meus problemes amb la veu alteren la meva vida personal i social`
-class(var)
-```
-
-
-```{r, echo= FALSE, message=FALSE}
-var = as.factor(var)
-
-var = as.factor(var, levels= c("Mai", "A vegades", "Gairebé mai", "A vegades", "Gairebé sempre"), labels = c(0,1,2,3,4))
-#s(var) <- c("Mai" = 0, "A vegades" = 1, "Gairebé mai" = 2, "A vegades" = 3, "Gairebé sempre" = 4)
-data_saludvocal$`Els meus problemes amb la veu alteren la meva vida personal i social` = var
-```
-
-
-Visualizamos el conjunto de datos. 
+Leemos los datos del fichero "Salut_Vocal_anonimizada.csv" y cambiamos los nombres de las variables.
 
 ```{r}
-data_saludvocal %>% 
-  glimpse
-```
+raw_data<-read.csv("Salut_Vocal_anonimizada.csv",
+                   header=TRUE, sep=";")
+
+raw_data <- raw_data %>% select(-X) %>% 
+   rename(
+    Importancia_voz = "De.l.1.al.10.quina.importancia.té.la.veu.per.a.vostè.",
+    Sexo = "Sexe",
+    Lugar_trabajo="On.fa.feina.",
+    Cuerpo_docente="Cos.docent",
+    Edad="Quina.edat.té.",
+    Actividas_fisica="Practica.esport.o.fa.alguna.activitat.física.",
+    Importancia_deporte="De.l.1.al.10.quina.importancia.té.la.pràctica.de.l.esport.o.activitat.física.per.a.vostè.",
+    Calidad_sueño="Té.una.bona.qualitat.del.son.",
+    Cafe="Consumeix.cafè.",
+    Tabaco="Consumeix.tabac.",
+    Alcohol="Consumeix.alcohol.",
+    Bebida_gas="Consumeix.begudes.amb.gas.",
+    Dieta_saludable="De..l.1.al.10.assenyali.si.segueix.una.dieta.equilibrada.i.saludable.",
+    Diagnostico="Ha.estat.diagnosticat.per.un.metge.o.metgessa.d.alguna.de.les.malalties.següents.",
+    Patologia="Si.ha.marcat.alguna.de.les.opcions.anterior..especifiqui.la.patologia.",
+    Diagnostico_especialista="Ha.estat.diagnosticat.per.un.especialista.mèdic..otorinolaringòleg..foniatra..d.alguna.lesió.a.les.cordes.vocals.",
+    Sintomas="Aquest.mes.ha.tengut.algún.símptoma.vocal.dels.següents..Es.pot.marcar.més.d.una.opció",
+    Operacion="L.han.operat.de.les.cordes.vocals.",
+    Tiempo_alteracion="Si.té.alguna.alteració.de.la.veu..recorda.quin.temps.fa.que.va.començar.",
+    Baja_voz="En.alguna.ocasió..ha.estat.de.baixa.laboral.per.problemes.de.veu.",
+    Baja_larga="Si.la.resposta.a.la.pregunta.anterior.és.afirmativa..indiqui.la.periodicitat..cada.any..trimestre.....i.la.durada.de.la.baixa.més.llarga.i.la.malaltia",
+    Problema_curso22_23="Ha.tengut.problemes.de.veu.importants.i.que.li.han.dificultat.la.feina.al.llarg.del.curs.2022.2023.",
+    Formacion_voz="Té.formació.sobre.salut.vocal.",
+    Medicacion="Pren.alguna.o.algunes.de.les.medicacions.següents..Es.pot.marcar.més.d.una.opció",
+    Higiene_vocal="Segueix.una.rutina.d.higiene.vocal.",
+    Actividades="Fa.alguna.de.les.activitats.següents..Es.pot.marcar.més.d.una.opció",
+    No_me_ecuchan="La.gent.em.sent.amb.dificultat.a.causa.de.la.meva.veu",
+    No_me_escuchan_ruido="La.gent.no.m.entén.en.llocs.sorollosos",
+    Alteracion_vida_social="Els.meus.problemes.amb.la.veu.alteren.la.meva.vida.personal.i.social",
+    Desplazado_conversacion="Em.sent.desplaçat.de.les.converses.per.la.meva.veu",
+    Rendimiento_laboral="El.meu.problema.amb.la.veu.afecta.el.rendiment.laboral",
+    Tensar_producir_voz="Not.que.necessit.tensar.la.gola..gargamella..per.produir.la.veu",
+    Calidad_imprevisible="La.qualitat.de.la.meva.veu.és.imprevisible",
+    Me_molesta="La.meva.veu.em.molesta",
+    Minusvalia="La.meva.veu.em.fa.sentir.certa.minusvalidesa",
+    Gente_pregunta="La.gent.em.pregunta..què.et.passa.amb.la.veu."
+)
+
+glimpse(raw_data)
+```  
+
+Observamos que hay 185 respuestas y 37 variables. Vamos a limpiar los nombres de las variables y a convertir las variables categóricas en factores, a excepción de las variables "importancia_voz", "importancia_deporte" y "dieta_saludable" que las dejamos como variables cuantitativas discretas.
 
 ```{r}
-data_saludvocal <- data_saludvocal %>%
-  mutate(SCORE = rowSums(select(., 28:38)))
-data_saludvocal
+data <- janitor::clean_names(raw_data) %>% 
+        mutate(across(-c(importancia_voz,
+                         importancia_deporte,
+                         dieta_saludable), as.factor))
+
+glimpse(data)
+
+```  
+
+Ahora, para calcular el índice de calidad de voz (VHI), vamos a seleccionar las variables desde la 28 a la 37 para convertirlas en cuantitativas discretas y a sumarlas para obtener el índice VIH.
+
+```{r}
+datos<-data %>% select(28:37) %>% 
+  mutate(across(everything(), ~case_when(
+     . == "Mai" ~ 0,
+     . == "Gairebé mai" ~ 1,
+     . == "A vegades" ~ 2,
+     . == "Gairebé sempre" ~ 3,
+     . == "Sempre" ~ 4
+   ))
+   )
+
+datos<-datos %>% mutate(VHI=rowSums(datos))
+
+glimpse(datos) 
 ```
 
+Por último, vamos a añadir la variable VHI al dataframe original y a eliminar las variables de la 28 a la 37.
 
-
-## Descripción de los datos
-
-Su dimensión es de 185 filas y 38 variables.
-
-La descripción de las variables está en el pdf adjunto.
+```{r}
+data<-data %>% select(-c(28:37))%>% 
+   bind_cols(VHI=datos$score)
+glimpse(data) 
+```
 
 ## Objetivos
 
 1. Hacer la columna con la suma que indica la calidad.
 
-2. Pregunta 4. ¿Qué factores influyen enuna mala calidad de voz?Café, tabaco, alcohol,bebidas con gas etc.
+2. Pregunta 4. ¿Qué factores influyen en una mala calidad de voz? Café, tabaco, alcohol,bebidas con gas etc.
 
 ## Análisis
-
-La pregunta 1 no hemos podido acabarla. La necesitamos para la 2.
 
 La pregunta 2 se trata de comparar una variable cuantitativa y una cualitativa con 4 factores en repetidas ocasiones.
 
 
-Cruzamos una variable cuantitativa (SCORE (columna resultante de la pregunta 1)) con una cualitativa (cafe, tabaco, alcholo, bebidas con gas). Usamos boxplot. El codigo del grafico seria de la siguente manera.
+Cruzamos una variable cuantitativa (VHI (columna resultante de la pregunta 1)) con una cualitativa (cafe, tabaco, alcholo, bebidas con gas). Usamos boxplot. El codigo del grafico seria de la siguente manera.
 
 ```{r, eval = FALSE}
-ggplot(data, aes(x = cafe, y = SCORE)) +
+ggplot(data, aes(x = cafe, y = VHI)) +
   theme_bw() + 
   geom_boxplot(aes(color = cafe), width = 0.3, 
                show.legend = FALSE) + 
@@ -176,7 +137,7 @@ ggplot(data, aes(x = cafe, y = SCORE)) +
               show.legend = FALSE, 
               position = position_jitter(width = 0.2, seed = 0)) + 
   scale_color_manual(values = c("magenta3","darkgreen","orange", "pink", "lightblue")) + 
-  labs(x = "Consum de cafe", y = "SCORE (calidad)") 
+  labs(x = "Consum de cafe", y = "VHI (calidad)") 
 ```
 
 Repetiriamos un proceso análogo en el resto de casos (tabaco, bebidas con gas, ...)
