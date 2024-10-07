@@ -1,6 +1,14 @@
 ---
-title: "ENTREGA 2 Análisis de Datos"
-format: html
+title: "Síntomas vocales en profesores"
+subtitle: "20582- Análisis de Datos para el GMAT"
+date: today
+format:
+  html:
+    theme: lumen
+    toc: true
+    toc-depth: 3
+Rendering:
+    embed-resources: true
 author: 
   - Carlos Aliño
   - Dídac Capó
@@ -26,11 +34,9 @@ library(janitor)
 library(viridis)
 ```
 
-## Lectura y limpieza de los datos
-
 Leemos los datos del fichero "Salut_Vocal_anonimizada.csv" y cambiamos los nombres de las variables.
 
-```{r}
+```{r,echo=FALSE}
 raw_data<-read.csv("Salut_Vocal_anonimizada.csv",
                    header=TRUE, sep=";")
 
@@ -111,7 +117,7 @@ Por último, vamos a añadir la variable VHI al dataframe original y a eliminar 
 
 ```{r}
 data<-data %>% select(-c(28:37))%>% 
-   bind_cols(VHI=datos$score)
+  bind_cols(VHI=datos$score)
 glimpse(data) 
 ```
 
