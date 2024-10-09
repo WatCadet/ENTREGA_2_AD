@@ -26,7 +26,7 @@ Hacemos una lectura y limpieza de los datos. Describimos los datos y presentamos
 ## Lectura y limpieza de los datos
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, output=FALSE)
 library(tidyverse)
 library(readr)
 library(hrbrthemes)
@@ -85,14 +85,13 @@ glimpse(raw_data)
 
 Observamos que hay 185 respuestas y 37 variables. Vamos a limpiar los nombres de las variables y a convertir las variables categóricas en factores, a excepción de las variables "importancia_voz", "importancia_deporte" y "dieta_saludable" que las dejamos como variables cuantitativas discretas.
 
-```{r}
+```{r, output=TRUE}
 data <- janitor::clean_names(raw_data) %>% 
         mutate(across(-c(importancia_voz,
                          importancia_deporte,
                          dieta_saludable), as.factor))
 
 glimpse(data)
-
 ```  
 
 Ahora, para calcular el índice de calidad de voz (VHI), vamos a seleccionar las variables desde la 28 a la 37 para convertirlas en cuantitativas discretas y a sumarlas para obtener el índice VIH.
@@ -115,7 +114,7 @@ glimpse(datos)
 
 Por último, vamos a añadir la variable VHI al dataframe original y a eliminar las variables de la 28 a la 37.
 
-```{r}
+```{r, output=TRUE}
 data <-data %>% select(-c(28:37))%>% 
   bind_cols(VHI=datos$VHI)
 glimpse(data) 
@@ -129,12 +128,13 @@ glimpse(data)
 
 ## Análisis
 
-La pregunta 2 se trata de comparar una variable cuantitativa y una cualitativa con 4 factores en repetidas ocasiones.
+En la lectura y limpieza de datos hemos creado la columna `VHI` que indica la calidad de voz del individuo.
 
+El objetivo 2 se trata de comparar una variable cuantitativa y una cualitativa con 4 factores en repetidas ocasiones.
 
 Cruzamos una variable cuantitativa (VHI (columna resultante de la pregunta 1)) con una cualitativa (cafe, tabaco, alcholo, bebidas con gas). Usamos boxplot. El codigo del grafico seria de la siguente manera.
 
-```{r, eval = FALSE}
+```{r, echo = TRUE, output =TRUE}
 ggplot(data, aes(x = cafe, y = VHI)) +
   theme_bw() + 
   geom_boxplot(aes(color = cafe), width = 0.3, 
