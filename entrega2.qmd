@@ -132,9 +132,11 @@ En la lectura y limpieza de datos hemos creado la columna `VHI` que indica la ca
 
 El objetivo 2 se trata de comparar una variable cuantitativa y una cualitativa con 4 factores en repetidas ocasiones.
 
-Cruzamos una variable cuantitativa (VHI (columna resultante de la pregunta 1)) con una cualitativa (cafe, tabaco, alcholo, bebidas con gas). Usamos boxplot. El codigo del grafico seria de la siguente manera.
+Cruzamos una variable cuantitativa (VHI (columna resultante de la pregunta 1)) con una cualitativa (cafe, tabaco, alchol, bebidas con gas). Usamos boxplot. El codigo del grafico seria de la siguente manera.
 
-```{r, echo = TRUE, output =TRUE}
+### Café
+
+```{r, output =TRUE}
 ggplot(data, aes(x = cafe, y = VHI)) +
   theme_bw() + 
   geom_boxplot(aes(color = cafe), width = 0.3, 
@@ -143,9 +145,53 @@ ggplot(data, aes(x = cafe, y = VHI)) +
               show.legend = FALSE, 
               position = position_jitter(width = 0.2, seed = 0)) + 
   scale_color_manual(values = c("magenta3","darkgreen","orange", "pink", "lightblue")) + 
-  labs(x = "Consum de cafe", y = "VHI (calidad)") 
+  labs(x = "Consumo de cafe", y = "VHI (calidad)") 
 ```
 
 Repetiriamos un proceso análogo en el resto de casos (tabaco, bebidas con gas, ...)
+
+### Tabaco
+
+```{r, output =TRUE}
+ggplot(data, aes(x = tabaco, y = VHI)) +
+  theme_bw() + 
+  geom_boxplot(aes(color = tabaco), width = 0.3, 
+               show.legend = FALSE) + 
+  geom_jitter(aes(color = tabaco), alpha = 0.5, 
+              show.legend = FALSE, 
+              position = position_jitter(width = 0.2, seed = 0)) + 
+  scale_color_manual(values = c("magenta3","darkgreen","orange", "pink", "lightblue")) + 
+  labs(x = "Consumo de tabaco", y = "VHI (calidad)") 
+```
+
+### Alcohol
+
+```{r, output =TRUE}
+ggplot(data, aes(x = alcohol, y = VHI)) +
+  theme_bw() + 
+  geom_boxplot(aes(color = alcohol), width = 0.3, 
+               show.legend = FALSE) + 
+  geom_jitter(aes(color = alcohol), alpha = 0.5, 
+              show.legend = FALSE, 
+              position = position_jitter(width = 0.2, seed = 0)) + 
+  scale_color_manual(values = c("magenta3","darkgreen","orange", "pink", "lightblue")) + 
+  labs(x = "Consumo de alcohol", y = "VHI (calidad)") 
+```
+
+### Bebidas con gas
+
+```{r, output =TRUE}
+ggplot(data, aes(x = bebida_gas, y = VHI)) +
+  theme_bw() + 
+  geom_boxplot(aes(color = bebida_gas), width = 0.3, 
+               show.legend = FALSE) + 
+  geom_jitter(aes(color = bebida_gas), alpha = 0.5, 
+              show.legend = FALSE, 
+              position = position_jitter(width = 0.2, seed = 0)) + 
+  scale_color_manual(values = c("magenta3","darkgreen","orange", "pink", "lightblue")) + 
+  labs(x = "Consumo de bebidas con gas", y = "VHI (calidad)") 
+```
+
+
 
 ## Conclusiones
