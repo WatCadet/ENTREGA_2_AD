@@ -31,6 +31,7 @@ library(tidyverse)
 library(readr)
 library(hrbrthemes)
 library(janitor)
+library(fBasics)
 library(viridis)
 ```
 
@@ -168,6 +169,35 @@ ggplot(data, aes(x = tabaco, y = VHI)) +
   labs(x = "Consumo de tabaco", y = "VHI (calidad)") 
 ```
 
+Se les pregunta a los individuos con qué frecuencia consumen tabaco. Pueden responder: "No","Anteriorment (exfumador)","Ocasionalment","Diariament". No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.
+
+Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques. 
+
+Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son:
+Normalidad y homocedasticidad (homogeneidad variancia).
+Como hay observaciones suficientes utilizamos la prueva de Shapiro-Wilk.
+
+Hacemos el test para cada nivel:
+```{r}
+shapiro.test(data$VHI[data$tabaco=="No"])
+```
+```{r}
+shapiro.test(data$VHI[data$tabaco=="Anteriorment (exfumador)"])
+```
+```{r}
+shapiro.test(data$VHI[data$tabaco=="Diariament"])
+```
+```{r}
+shapiro.test(data$VHI[data$tabaco=="Ocasionalment"])
+```
+Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
+Utilizaremos el test de Kruskal_Wallis
+
+```{r}
+kruskal.test(VHI~tabaco, data)
+```
+
+Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de tabaco (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).
 ### Alcohol
 
 ```{r, output =TRUE}
@@ -190,31 +220,29 @@ Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques.
 
 Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son:
 Normalidad y homocedasticidad (homogeneidad variancia).
-Como hay 30 observaciones utilizamos la prueva de Shapiro-Wilk.
+Como hay observaciones suficiente utilizamos la prueva de Shapiro-Wilk.
 
 Hacemos el test para cada nivel:
 ```{r,output=TRUE}
-shapiro.test(as.numeric(data$alcohol=="No"))
+shapiro.test(data$VHI[data$alcohol=="No"])
 ```
 ```{r}
-shapiro.test(as.numeric(data$alcohol=="Ocasionalment"))
-
+shapiro.test(data$VHI[data$alcohol=="Ocasionalment"])
 ```
 ```{r}
-shapiro.test(as.numeric(data$alcohol=="Setmanalment"))
-
+shapiro.test(data$VHI[data$alcohol=="Setmanalment"])
 ```
 ```{r}
-shapiro.test(as.numeric(data$alcohol=="Diariament"))
-
+shapiro.test(data$VHI[data$alcohol=="Diariament"])
 ```
-Vemos que ninguno de los niveles sigue un distrubución normal (los p-valores son menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
-Utilizaremos el test de Kruskal
+Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
+Utilizaremos el test de Kruskal_Wallis
+
 ```{r}
 kruskal.test(VHI~alcohol, data)
-
 ```
-Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de alcohol (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).
+
+Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de tabaco (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).
 ### Bebidas con gas
 
 ```{r, output =TRUE}
@@ -237,22 +265,13 @@ Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques.
 
 Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son:
 Normalidad y homocedasticidad (homogeneidad variancia).
-Como hay 30 observaciones utilizamos la prueva de Shapiro-Wilk.
+Como hay niveles que no tienen suficientes observaciones, comprovemos si el nivel que tiene suficientes observaciones distribuye normal con la prueva de Shapiro-Wilk.
 
-Hacemos el test para cada nivel:
-```{r,output=TRUE}
-shapiro.test(as.numeric(data$bebida_gas=="Mai"))
+```{r}
+shapiro.test(data$VHI[data$alcohol=="Ocasionalment"])
 ```
-```{r,output=TRUE}
-shapiro.test(as.numeric(data$bebida_gas=="Menys de dos cops per setmana"))
-```
-```{r,output=TRUE}
-shapiro.test(as.numeric(data$bebida_gas=="Ocasionalment"))
-```
-```{r,output=TRUE}
-shapiro.test(as.numeric(data$bebida_gas=="Diàriament"))
-```
-Vemos que ninguno de los niveles sigue un distrubución normal (los p-valores son menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
+
+Vemos que hay un nivel que no sigue una distrubución normal (el p-valor es menor a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
 Utilizaremos el test de Kruskal
 ```{r}
 kruskal.test(VHI~bebida_gas, data)
