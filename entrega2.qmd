@@ -86,7 +86,7 @@ glimpse(raw_data)
 
 Observamos que hay 185 respuestas y 37 variables. Vamos a limpiar los nombres de las variables y a convertir las variables categóricas en factores, a excepción de las variables "importancia_voz", "importancia_deporte" y "dieta_saludable" que las dejamos como variables cuantitativas discretas.
 
-```{r, output=TRUE}
+```{r}
 data <- janitor::clean_names(raw_data) %>% 
         mutate(across(-c(importancia_voz,
                          importancia_deporte,
@@ -123,19 +123,21 @@ glimpse(data)
 
 ## Objetivos
 
-1. Hacer la columna con la suma que indica la calidad.
+1. Obtener la columna con la variable numérica VHI que indica la calidad de la voz.
 
-2. Pregunta 4. ¿Qué factores influyen en una mala calidad de voz? Café, tabaco, alcohol,bebidas con gas etc.
+2. Pregunta 4. ¿Qué factores influyen en una mala calidad de voz? Café, tabaco, alcohol, bebidas con gas, etc.
 
 ## Análisis
 
-En la lectura y limpieza de datos hemos creado la columna `VHI` que indica la calidad de voz del individuo.
+En la lectura y limpieza de datos se ha creado la columna `VHI` que indica la calidad de voz del individuo.
 
 El objetivo 2 se trata de comparar una variable cuantitativa y una cualitativa con 4 factores en repetidas ocasiones.
 
-Cruzamos una variable cuantitativa (VHI (columna resultante de la pregunta 1)) con una cualitativa (cafe, tabaco, alchol, bebidas con gas). Usamos boxplot. El codigo del grafico seria de la siguente manera.
+Cruzamos una variable cuantitativa (VHI) con una cualitativa (café, tabaco, alchol, bebidas con gas). Usamos boxplot.
 
 ### Café
+
+Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: "Mai", "Menys de dos cops per setmana", "Ocasionalment" y "Diàriament". Visualizamos las respuestas.
 
 ```{r, output =TRUE}
 data$cafe <- factor(data$cafe, levels=c("Mai","Menys de dos cops per setmana","Ocasionalment","Diàriament"),labels = c("Mai","<2 cops per setmana","Ocasionalment","Diàriament"))
@@ -151,30 +153,30 @@ ggplot(data, aes(x = cafe, y = VHI)) +
   labs(x = "Consumo de cafe", y = "VHI (calidad)") 
 ```
 
-Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: "Mai", "Menys de dos cops per setmana", "Ocasionalment" y "Diàriament". No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.
+No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.
 
-Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques. 
+Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques.
 
-Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son:
-Normalidad y homocedasticidad (homogeneidad variancia).
-Como hay niveles que no tienen suficientes observaciones, comprovemos si el nivel que tiene suficientes observaciones distribuye normal con la prueva de Shapiro-Wilk.
+Verificamos primero si los datos cumplen los supuestos de un análisis paramétrico, que son normalidad y homocedasticidad (homogeneidad variancia).
 
-```{r}
+Como hay niveles que no tienen suficientes observaciones, comprovemos si el nivel que tiene suficientes observaciones distribuye normal con la prueba de Shapiro-Wilk.
+```{r, output=TRUE}
 shapiro.test(data$VHI[data$cafe=="Mai"])
 ```
 Vemos que hay un nivel que no sigue una distrubución normal (el p-valor es menor a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
 
 Utilizaremos el test de Kruskal
-
-```{r}
+```{r, output=TRUE}
 kruskal.test(VHI~cafe, data)
 ```
 
-Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de bebidas con gas (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).
+Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de café (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).
 
-Repetiriamos un proceso análogo en el resto de casos (tabaco, bebidas con gas, ...)
+Repetiriamos un proceso análogo en el resto de casos (tabaco, alcohol, bebidas con gas)
 
 ### Tabaco
+
+Se pregunta a los individuos con qué frecuencia consumen tabaco. Pueden responder: "No","Anteriorment (exfumador)","Ocasionalment","Diariament". 
 
 ```{r, output =TRUE}
 data$tabaco <- factor(data$tabaco, levels=c("No","Anteriorment (exfumador)","Ocasionalment","Diariament"))
@@ -190,37 +192,39 @@ ggplot(data, aes(x = tabaco, y = VHI)) +
   labs(x = "Consumo de tabaco", y = "VHI (calidad)") 
 ```
 
-Se les pregunta a los individuos con qué frecuencia consumen tabaco. Pueden responder: "No","Anteriorment (exfumador)","Ocasionalment","Diariament". No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.
+No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.
 
 Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques. 
 
-Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son:
-Normalidad y homocedasticidad (homogeneidad variancia).
-Como hay observaciones suficientes utilizamos la prueva de Shapiro-Wilk.
+Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: normalidad y homocedasticidad (homogeneidad variancia).
+
+Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk.
 
 Hacemos el test para cada nivel:
-```{r}
+```{r, output=TRUE}
 shapiro.test(data$VHI[data$tabaco=="No"])
 ```
-```{r}
+```{r, output=TRUE}
 shapiro.test(data$VHI[data$tabaco=="Anteriorment (exfumador)"])
 ```
-```{r}
+```{r, output=TRUE}
 shapiro.test(data$VHI[data$tabaco=="Diariament"])
 ```
-```{r}
+```{r, output=TRUE}
 shapiro.test(data$VHI[data$tabaco=="Ocasionalment"])
 ```
-Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
-Utilizaremos el test de Kruskal_Wallis
 
-```{r}
+Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test), no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
+Utilizaremos el test de Kruskal_Wallis
+```{r, output=TRUE}
 kruskal.test(VHI~tabaco, data)
 ```
 
 Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de tabaco (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).
 
 ### Alcohol
+
+Se les pregunta a los individuos con qué frecuencia consumen alcohol. Pueden responder: "No", "Ocasionalmente", "Semanalmente" y "Diariamente". 
 
 ```{r, output =TRUE}
 data$alcohol <- factor(data$alcohol, levels=c("No","Ocasionalment","Setmanalment","Diariament"))
@@ -236,37 +240,40 @@ ggplot(data, aes(x = alcohol, y = VHI)) +
   labs(x = "Consumo de alcohol", y = "VHI (calidad)") 
 ```
 
-Se les pregunta a los individuos con qué frecuencia consumen alcohol. Pueden responder: "No", "Ocasionalmente", "Semanalmente" y "Diariamente". No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.
+No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.
 
 Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques. 
 
-Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son:
-Normalidad y homocedasticidad (homogeneidad variancia).
-Como hay observaciones suficiente utilizamos la prueva de Shapiro-Wilk.
+Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: normalidad y homocedasticidad (homogeneidad variancia).
+
+Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk.
 
 Hacemos el test para cada nivel:
 ```{r,output=TRUE}
 shapiro.test(data$VHI[data$alcohol=="No"])
 ```
-```{r}
+```{r, output=TRUE}
 shapiro.test(data$VHI[data$alcohol=="Ocasionalment"])
 ```
-```{r}
+```{r, output=TRUE}
 shapiro.test(data$VHI[data$alcohol=="Setmanalment"])
 ```
-```{r}
+```{r, output=TRUE}
 shapiro.test(data$VHI[data$alcohol=="Diariament"])
 ```
-Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
-Utilizaremos el test de Kruskal_Wallis
 
-```{r}
+Vemos que hay niveles que no siguen una distrubución normal (hay p-valores menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
+
+Utilizaremos el test de Kruskal_Wallis.
+```{r, output=TRUE}
 kruskal.test(VHI~alcohol, data)
 ```
 
 Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de tabaco (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).
 
 ### Bebidas con gas
+
+Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: "Mai", "Menys de dos cops per setmana", "Ocasionalment" y "Diàriamente".
 
 ```{r, output =TRUE}
 data$bebida_gas <- factor(data$bebida_gas, levels=c("Mai","Menys de dos cops per setmana","Ocasionalment","Diàriament"),labels = c("Mai","<2 cops per setmana","Ocasionalment","Diàriament"))
@@ -282,22 +289,21 @@ ggplot(data, aes(x = bebida_gas, y = VHI)) +
   labs(x = "Consumo de bebidas con gas", y = "VHI (calidad)") 
 ```
 
-Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: "Mai", "Menys de dos cops per setmana", "Ocasionalment" y "Diàriamente". No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.
+No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.
 
 Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques. 
 
-Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son:
-Normalidad y homocedasticidad (homogeneidad variancia).
-Como hay niveles que no tienen suficientes observaciones, comprovemos si el nivel que tiene suficientes observaciones distribuye normal con la prueva de Shapiro-Wilk.
+Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: normalidad y homocedasticidad (homogeneidad variancia).
 
-```{r}
+Como hay niveles que no tienen suficientes observaciones, comprobemos si el nivel que tiene suficientes observaciones distribuye normal con la prueba de Shapiro-Wilk.
+```{r, output=TRUE}
 shapiro.test(data$VHI[data$alcohol=="Ocasionalment"])
 ```
 
 Vemos que hay un nivel que no sigue una distrubución normal (el p-valor es menor a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
-Utilizaremos el test de Kruskal
 
-```{r}
+Utilizaremos el test de Kruskal
+```{r, output=TRUE}
 kruskal.test(VHI~bebida_gas, data)
 ```
 
@@ -305,4 +311,4 @@ Según este test, no podemos inferir que la calidad de la voz se vea afectada po
 
 ## Conclusiones
 
-En conclusión, no podemos concluir que la calidad de la voz se vea afectada por la frecuencia de consumo de 
+En conclusión, según nuestro análisis el consumo de café, tabaco, alcohol y bebidas con gas no afecta en la calidad de la voz.

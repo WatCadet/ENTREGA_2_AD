@@ -106,49 +106,6 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="lectura-y-limpieza-de-los-datos">Lectura y limpieza de los datos</h2>
 <p>Leemos los datos del fichero “Salut_Vocal_anonimizada.csv” y cambiamos los nombres de las variables.</p>
 <p>Observamos que hay 185 respuestas y 37 variables. Vamos a limpiar los nombres de las variables y a convertir las variables categóricas en factores, a excepción de las variables “importancia_voz”, “importancia_deporte” y “dieta_saludable” que las dejamos como variables cuantitativas discretas.</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 185
-Columns: 37
-$ id                       &lt;fct&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14…
-$ importancia_voz          &lt;int&gt; 10, 10, 10, 10, 10, 10, 9, 9, 10, 10, 9, 10, …
-$ sexo                     &lt;fct&gt; Femení, Femení, Masculí, Femení, Femení, Feme…
-$ lugar_trabajo            &lt;fct&gt; "Palma, Llucmajor, Algaida, Santa Eugènia, Ma…
-$ cuerpo_docente           &lt;fct&gt; "Formació Professional", "Educació Secundària…
-$ edad                     &lt;fct&gt; Entre 36 i 50, Entre 36 i 50, Entre 36 i 50, …
-$ actividas_fisica         &lt;fct&gt; Més de 150 min. per setmana, Més de 150 min. …
-$ importancia_deporte      &lt;int&gt; 10, 10, 10, 8, 10, 10, 10, 7, 10, 10, 7, 9, 7…
-$ calidad_sueno            &lt;fct&gt; Dorm bé i em despert descansat, Dorm bé però …
-$ cafe                     &lt;fct&gt; Diàriament, Ocasionalment, Diàriament, Diària…
-$ tabaco                   &lt;fct&gt; Diariament, No, No, Anteriorment (exfumador),…
-$ alcohol                  &lt;fct&gt; Ocasionalment, Ocasionalment, Setmanalment, S…
-$ bebida_gas               &lt;fct&gt; Mai, Ocasionalment, Diàriament, Ocasionalment…
-$ dieta_saludable          &lt;int&gt; 8, 6, 9, 6, 10, 10, 8, 8, 8, 8, 9, 9, 8, 7, 7…
-$ diagnostico              &lt;fct&gt; "Cap de les esmentades anteriorment", "Cap de…
-$ patologia                &lt;fct&gt; "", "", "", "", "Asma, al·lergia", "", "", ""…
-$ diagnostico_especialista &lt;fct&gt; No, Si, No, Si, No, Si, No, No, Si, No, No, N…
-$ sintomas                 &lt;fct&gt; "Mucositat", "Fatiga vocal", "Veu ronca, esca…
-$ operacion                &lt;fct&gt; No, No, No, No, No, No, No, No, Si, No, No, N…
-$ tiempo_alteracion        &lt;fct&gt; No tenc cap alteració de la veu., Va començar…
-$ baja_voz                 &lt;fct&gt; "No, mai he estat de baixa per un problema de…
-$ baja_larga               &lt;fct&gt; "", "El curs escolar passat. Una setmana senc…
-$ problema_curso22_23      &lt;fct&gt; No, Si, Si, No, Si, Si, Si, No, No, No, No, N…
-$ formacion_voz            &lt;fct&gt; "Si, vaig fer un curs fa temps", "No, mai he …
-$ medicacion               &lt;fct&gt; "Aspirina i antiinflamatoris no esteroideus",…
-$ higiene_vocal            &lt;fct&gt; "No seguesc cap rutina per a la veu", "No seg…
-$ actividades              &lt;fct&gt; "No faig cap activitat amb exigència vocal ex…
-$ no_me_ecuchan            &lt;fct&gt; Mai, Mai, Mai, Gairebé sempre, Sempre, Gaireb…
-$ no_me_escuchan_ruido     &lt;fct&gt; Mai, A vegades, Gairebé sempre, Gairebé sempr…
-$ alteracion_vida_social   &lt;fct&gt; Mai, A vegades, A vegades, Gairebé mai, Gaire…
-$ desplazado_conversacion  &lt;fct&gt; Mai, Mai, Mai, Gairebé mai, A vegades, Mai, M…
-$ rendimiento_laboral      &lt;fct&gt; Mai, A vegades, Gairebé mai, Mai, Gairebé sem…
-$ tensar_producir_voz      &lt;fct&gt; Mai, A vegades, Mai, Mai, A vegades, A vegade…
-$ calidad_imprevisible     &lt;fct&gt; Mai, Mai, Mai, Mai, Gairebé sempre, A vegades…
-$ me_molesta               &lt;fct&gt; Mai, Mai, Mai, Mai, Gairebé sempre, Mai, Gair…
-$ minusvalia               &lt;fct&gt; Mai, Mai, Mai, Mai, Gairebé sempre, Mai, A ve…
-$ gente_pregunta           &lt;fct&gt; Mai, Mai, Mai, Mai, Gairebé sempre, A vegades…</code></pre>
-</div>
-</div>
 <p>Ahora, para calcular el índice de calidad de voz (VHI), vamos a seleccionar las variables desde la 28 a la 37 para convertirlas en cuantitativas discretas y a sumarlas para obtener el índice VIH.</p>
 <p>Por último, vamos a añadir la variable VHI al dataframe original y a eliminar las variables de la 28 a la 37.</p>
 <div class="cell">
@@ -189,17 +146,18 @@ $ VHI                      &lt;dbl&gt; 0, 8, 6, 8, 27, 15, 14, 4, 10, 7, 1, 2, 8
 <section id="objetivos" class="level2">
 <h2 class="anchored" data-anchor-id="objetivos">Objetivos</h2>
 <ol type="1">
-<li><p>Hacer la columna con la suma que indica la calidad.</p></li>
-<li><p>Pregunta 4. ¿Qué factores influyen en una mala calidad de voz? Café, tabaco, alcohol,bebidas con gas etc.</p></li>
+<li><p>Obtener la columna con la variable numérica VHI que indica la calidad de la voz.</p></li>
+<li><p>Pregunta 4. ¿Qué factores influyen en una mala calidad de voz? Café, tabaco, alcohol, bebidas con gas, etc.</p></li>
 </ol>
 </section>
 <section id="análisis" class="level2">
 <h2 class="anchored" data-anchor-id="análisis">Análisis</h2>
-<p>En la lectura y limpieza de datos hemos creado la columna <code>VHI</code> que indica la calidad de voz del individuo.</p>
+<p>En la lectura y limpieza de datos se ha creado la columna <code>VHI</code> que indica la calidad de voz del individuo.</p>
 <p>El objetivo 2 se trata de comparar una variable cuantitativa y una cualitativa con 4 factores en repetidas ocasiones.</p>
-<p>Cruzamos una variable cuantitativa (VHI (columna resultante de la pregunta 1)) con una cualitativa (cafe, tabaco, alchol, bebidas con gas). Usamos boxplot. El codigo del grafico seria de la siguente manera.</p>
+<p>Cruzamos una variable cuantitativa (VHI) con una cualitativa (café, tabaco, alchol, bebidas con gas). Usamos boxplot.</p>
 <section id="café" class="level3">
 <h3 class="anchored" data-anchor-id="café">Café</h3>
+<p>Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: “Mai”, “Menys de dos cops per setmana”, “Ocasionalment” y “Diàriament”. Visualizamos las respuestas.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -209,16 +167,36 @@ $ VHI                      &lt;dbl&gt; 0, 8, 6, 8, 27, 15, 14, 4, 10, 7, 1, 2, 8
 </div>
 </div>
 </div>
-<p>Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: “Mai”, “Menys de dos cops per setmana”, “Ocasionalment” y “Diàriament”. No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.</p>
+<p>No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.</p>
 <p>Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques.</p>
-<p>Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: Normalidad y homocedasticidad (homogeneidad variancia). Como hay niveles que no tienen suficientes observaciones, comprovemos si el nivel que tiene suficientes observaciones distribuye normal con la prueva de Shapiro-Wilk.</p>
+<p>Verificamos primero si los datos cumplen los supuestos de un análisis paramétrico, que son normalidad y homocedasticidad (homogeneidad variancia).</p>
+<p>Como hay niveles que no tienen suficientes observaciones, comprovemos si el nivel que tiene suficientes observaciones distribuye normal con la prueba de Shapiro-Wilk.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  data$VHI[data$cafe == "Mai"]
+W = 0.93841, p-value = 0.01552</code></pre>
+</div>
+</div>
 <p>Vemos que hay un nivel que no sigue una distrubución normal (el p-valor es menor a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:</p>
 <p>Utilizaremos el test de Kruskal</p>
-<p>Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de bebidas con gas (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).</p>
-<p>Repetiriamos un proceso análogo en el resto de casos (tabaco, bebidas con gas, …)</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  VHI by cafe
+Kruskal-Wallis chi-squared = 2.5145, df = 3, p-value = 0.4727</code></pre>
+</div>
+</div>
+<p>Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de café (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).</p>
+<p>Repetiriamos un proceso análogo en el resto de casos (tabaco, alcohol, bebidas con gas)</p>
 </section>
 <section id="tabaco" class="level3">
 <h3 class="anchored" data-anchor-id="tabaco">Tabaco</h3>
+<p>Se pregunta a los individuos con qué frecuencia consumen tabaco. Pueden responder: “No”,“Anteriorment (exfumador)”,“Ocasionalment”,“Diariament”.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -228,15 +206,62 @@ $ VHI                      &lt;dbl&gt; 0, 8, 6, 8, 27, 15, 14, 4, 10, 7, 1, 2, 8
 </div>
 </div>
 </div>
-<p>Se les pregunta a los individuos con qué frecuencia consumen tabaco. Pueden responder: “No”,“Anteriorment (exfumador)”,“Ocasionalment”,“Diariament”. No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.</p>
+<p>No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.</p>
 <p>Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques.</p>
-<p>Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: Normalidad y homocedasticidad (homogeneidad variancia). Como hay observaciones suficientes utilizamos la prueva de Shapiro-Wilk.</p>
+<p>Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: normalidad y homocedasticidad (homogeneidad variancia).</p>
+<p>Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk.</p>
 <p>Hacemos el test para cada nivel:</p>
-<p>Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico: Utilizaremos el test de Kruskal_Wallis</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  data$VHI[data$tabaco == "No"]
+W = 0.91491, p-value = 7.967e-08</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  data$VHI[data$tabaco == "Anteriorment (exfumador)"]
+W = 0.84465, p-value = 0.08405</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  data$VHI[data$tabaco == "Diariament"]
+W = 0.80719, p-value = 0.01773</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  data$VHI[data$tabaco == "Ocasionalment"]
+W = 0.84322, p-value = 0.01799</code></pre>
+</div>
+</div>
+<p>Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test), no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico: Utilizaremos el test de Kruskal_Wallis</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  VHI by tabaco
+Kruskal-Wallis chi-squared = 0.71362, df = 3, p-value = 0.87</code></pre>
+</div>
+</div>
 <p>Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de tabaco (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).</p>
 </section>
 <section id="alcohol" class="level3">
 <h3 class="anchored" data-anchor-id="alcohol">Alcohol</h3>
+<p>Se les pregunta a los individuos con qué frecuencia consumen alcohol. Pueden responder: “No”, “Ocasionalmente”, “Semanalmente” y “Diariamente”.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -246,9 +271,10 @@ $ VHI                      &lt;dbl&gt; 0, 8, 6, 8, 27, 15, 14, 4, 10, 7, 1, 2, 8
 </div>
 </div>
 </div>
-<p>Se les pregunta a los individuos con qué frecuencia consumen alcohol. Pueden responder: “No”, “Ocasionalmente”, “Semanalmente” y “Diariamente”. No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.</p>
+<p>No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.</p>
 <p>Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques.</p>
-<p>Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: Normalidad y homocedasticidad (homogeneidad variancia). Como hay observaciones suficiente utilizamos la prueva de Shapiro-Wilk.</p>
+<p>Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: normalidad y homocedasticidad (homogeneidad variancia).</p>
+<p>Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk.</p>
 <p>Hacemos el test para cada nivel:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -259,11 +285,49 @@ data:  data$VHI[data$alcohol == "No"]
 W = 0.9236, p-value = 0.0004663</code></pre>
 </div>
 </div>
-<p>Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico: Utilizaremos el test de Kruskal_Wallis</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  data$VHI[data$alcohol == "Ocasionalment"]
+W = 0.86583, p-value = 3.415e-07</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  data$VHI[data$alcohol == "Setmanalment"]
+W = 0.89535, p-value = 0.006475</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  data$VHI[data$alcohol == "Diariament"]
+W = 0.99725, p-value = 0.8999</code></pre>
+</div>
+</div>
+<p>Vemos que hay niveles que no siguen una distrubución normal (hay p-valores menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:</p>
+<p>Utilizaremos el test de Kruskal_Wallis.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  VHI by alcohol
+Kruskal-Wallis chi-squared = 2.9649, df = 3, p-value = 0.3971</code></pre>
+</div>
+</div>
 <p>Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de tabaco (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).</p>
 </section>
 <section id="bebidas-con-gas" class="level3">
 <h3 class="anchored" data-anchor-id="bebidas-con-gas">Bebidas con gas</h3>
+<p>Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: “Mai”, “Menys de dos cops per setmana”, “Ocasionalment” y “Diàriamente”.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -273,16 +337,36 @@ W = 0.9236, p-value = 0.0004663</code></pre>
 </div>
 </div>
 </div>
-<p>Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: “Mai”, “Menys de dos cops per setmana”, “Ocasionalment” y “Diàriamente”. No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.</p>
+<p>No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.</p>
 <p>Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques.</p>
-<p>Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: Normalidad y homocedasticidad (homogeneidad variancia). Como hay niveles que no tienen suficientes observaciones, comprovemos si el nivel que tiene suficientes observaciones distribuye normal con la prueva de Shapiro-Wilk.</p>
-<p>Vemos que hay un nivel que no sigue una distrubución normal (el p-valor es menor a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico: Utilizaremos el test de Kruskal</p>
+<p>Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: normalidad y homocedasticidad (homogeneidad variancia).</p>
+<p>Como hay niveles que no tienen suficientes observaciones, comprobemos si el nivel que tiene suficientes observaciones distribuye normal con la prueba de Shapiro-Wilk.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  data$VHI[data$alcohol == "Ocasionalment"]
+W = 0.86583, p-value = 3.415e-07</code></pre>
+</div>
+</div>
+<p>Vemos que hay un nivel que no sigue una distrubución normal (el p-valor es menor a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:</p>
+<p>Utilizaremos el test de Kruskal</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  VHI by bebida_gas
+Kruskal-Wallis chi-squared = 4.0487, df = 3, p-value = 0.2563</code></pre>
+</div>
+</div>
 <p>Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de bebidas con gas (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).</p>
 </section>
 </section>
 <section id="conclusiones" class="level2">
 <h2 class="anchored" data-anchor-id="conclusiones">Conclusiones</h2>
-<p>En conclusión, no podemos concluir que la calidad de la voz se vea afectada por la frecuencia de consumo de</p>
+<p>En conclusión, según nuestro análisis el consumo de café, tabaco, alcohol y bebidas con gas no afecta en la calidad de la voz.</p>
 </section>
 
 </main>
