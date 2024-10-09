@@ -108,7 +108,7 @@ datos<-data %>% select(28:37) %>%
    ))
    )
 
-datos<-datos %>% mutate(VHI=rowSums(datos))
+datos <-datos %>% mutate(VHI=rowSums(datos))
 
 glimpse(datos) 
 ```
@@ -116,8 +116,8 @@ glimpse(datos)
 Por último, vamos a añadir la variable VHI al dataframe original y a eliminar las variables de la 28 a la 37.
 
 ```{r}
-data<-data %>% select(-c(28:37))%>% 
-  bind_cols(VHI=datos$score)
+data <-data %>% select(-c(28:37))%>% 
+  bind_cols(VHI=datos$VHI)
 glimpse(data) 
 ```
 

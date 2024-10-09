@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Carlos Aliño">
 <meta name="author" content="Dídac Capó">
 <meta name="author" content="Irene Rodríguez">
-<meta name="dcterms.date" content="2024-10-07">
+<meta name="dcterms.date" content="2024-10-09">
 
 <title>Síntomas vocales en profesores</title>
 <style>
@@ -114,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 7, 2024</p>
+      <p class="date">October 9, 2024</p>
     </div>
   </div>
   
@@ -238,7 +238,7 @@ $ gente_pregunta           &lt;fct&gt; Mai, Mai, Mai, Mai, Gairebé sempre, A ve
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>   ))</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>   )</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">&lt;-</span>datos <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">VHI=</span><span class="fu">rowSums</span>(datos))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span>datos <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">VHI=</span><span class="fu">rowSums</span>(datos))</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(datos) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -259,12 +259,12 @@ $ VHI                     &lt;dbl&gt; 0, 8, 6, 8, 27, 15, 14, 4, 10, 7, 1, 2, 8,
 </div>
 <p>Por último, vamos a añadir la variable VHI al dataframe original y a eliminar las variables de la 28 a la 37.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span>data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">28</span><span class="sc">:</span><span class="dv">37</span>))<span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(<span class="at">VHI=</span>datos<span class="sc">$</span>score)</span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span>data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">28</span><span class="sc">:</span><span class="dv">37</span>))<span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="at">VHI=</span>datos<span class="sc">$</span>VHI)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 185
-Columns: 27
+Columns: 28
 $ id                       &lt;fct&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14…
 $ importancia_voz          &lt;int&gt; 10, 10, 10, 10, 10, 10, 9, 9, 10, 10, 9, 10, …
 $ sexo                     &lt;fct&gt; Femení, Femení, Masculí, Femení, Femení, Feme…
@@ -291,7 +291,8 @@ $ problema_curso22_23      &lt;fct&gt; No, Si, Si, No, Si, Si, Si, No, No, No, N
 $ formacion_voz            &lt;fct&gt; "Si, vaig fer un curs fa temps", "No, mai he …
 $ medicacion               &lt;fct&gt; "Aspirina i antiinflamatoris no esteroideus",…
 $ higiene_vocal            &lt;fct&gt; "No seguesc cap rutina per a la veu", "No seg…
-$ actividades              &lt;fct&gt; "No faig cap activitat amb exigència vocal ex…</code></pre>
+$ actividades              &lt;fct&gt; "No faig cap activitat amb exigència vocal ex…
+$ VHI                      &lt;dbl&gt; 0, 8, 6, 8, 27, 15, 14, 4, 10, 7, 1, 2, 8, 6,…</code></pre>
 </div>
 </div>
 </section>
