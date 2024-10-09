@@ -137,6 +137,8 @@ Cruzamos una variable cuantitativa (VHI (columna resultante de la pregunta 1)) c
 ### Café
 
 ```{r, output =TRUE}
+data$cafe <- factor(data$cafe, levels=c("Mai","Menys de dos cops per setmana","Ocasionalment","Diàriament"),labels = c("Mai","<2 cops per setmana","Ocasionalment","Diàriament"))
+
 ggplot(data, aes(x = cafe, y = VHI)) +
   theme_bw() + 
   geom_boxplot(aes(color = cafe), width = 0.3, 
@@ -144,7 +146,7 @@ ggplot(data, aes(x = cafe, y = VHI)) +
   geom_jitter(aes(color = cafe), alpha = 0.5, 
               show.legend = FALSE, 
               position = position_jitter(width = 0.2, seed = 0)) + 
-  scale_color_manual(values = c("magenta3","darkgreen","orange", "pink", "lightblue")) + 
+  scale_color_manual(values = c("magenta3","darkgreen","orange", "pink")) + 
   labs(x = "Consumo de cafe", y = "VHI (calidad)") 
 ```
 
@@ -153,6 +155,8 @@ Repetiriamos un proceso análogo en el resto de casos (tabaco, bebidas con gas, 
 ### Tabaco
 
 ```{r, output =TRUE}
+data$tabaco <- factor(data$tabaco, levels=c("No","Anteriorment (exfumador)","Ocasionalment","Diariament"))
+
 ggplot(data, aes(x = tabaco, y = VHI)) +
   theme_bw() + 
   geom_boxplot(aes(color = tabaco), width = 0.3, 
@@ -167,6 +171,8 @@ ggplot(data, aes(x = tabaco, y = VHI)) +
 ### Alcohol
 
 ```{r, output =TRUE}
+data$alcohol <- factor(data$alcohol, levels=c("No","Ocasionalment","Setmanalment","Diariament"))
+
 ggplot(data, aes(x = alcohol, y = VHI)) +
   theme_bw() + 
   geom_boxplot(aes(color = alcohol), width = 0.3, 
@@ -181,6 +187,8 @@ ggplot(data, aes(x = alcohol, y = VHI)) +
 ### Bebidas con gas
 
 ```{r, output =TRUE}
+data$bebida_gas <- factor(data$bebida_gas, levels=c("Mai","Menys de dos cops per setmana","Ocasionalment","Diàriament"),labels = c("Mai","<2 cops per setmana","Ocasionalment","Diàriament"))
+
 ggplot(data, aes(x = bebida_gas, y = VHI)) +
   theme_bw() + 
   geom_boxplot(aes(color = bebida_gas), width = 0.3, 
