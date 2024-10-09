@@ -183,9 +183,10 @@ ggplot(data, aes(x = alcohol, y = VHI)) +
   scale_color_manual(values = c("magenta3","darkgreen","orange", "pink", "lightblue")) + 
   labs(x = "Consumo de alcohol", y = "VHI (calidad)") 
 ```
-Se'ls hi demana als individus la freqüència d'alcohol que consumeixen. Poden respondre: "No","Ocasionalment","Setmanalment" i "Diariament". No hi ha una diferència clara a la vista ja que les caixes se solapen. Així que no podem extreure conclusions singificatives del gràfic.
 
-Estudiem si podem aplicar una prova inferencial com l'anova de blocs. 
+Se les pregunta a los individuos con qué frecuencia consumen alcohol. Pueden responder: "No", "Ocasionalmente", "Semanalmente" y "Diariamente". No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.
+
+Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques. 
 
 ### Bebidas con gas
 
