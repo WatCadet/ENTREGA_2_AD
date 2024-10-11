@@ -95,7 +95,7 @@ data <- janitor::clean_names(raw_data) %>%
 glimpse(data)
 ```  
 
-Ahora, para calcular el índice de calidad de voz (VHI), vamos a seleccionar las variables desde la 28 a la 37 para convertirlas en cuantitativas discretas y a sumarlas para obtener el índice VIH.
+Ahora, para calcular el índice de calidad de voz (VHI), vamos a seleccionar las variables desde la 28 a la 37 para convertirlas en cuantitativas discretas y a sumarlas para obtener el índice VIH. 
 
 ```{r}
 datos<-data %>% select(28:37) %>% 
@@ -125,19 +125,23 @@ glimpse(data)
 
 1. Obtener la columna con la variable numérica VHI que indica la calidad de la voz.
 
-2. Pregunta 4. ¿Qué factores influyen en una mala calidad de voz? Café, tabaco, alcohol, bebidas con gas, etc.
+2. Responder a la Pregunta 4. ¿Qué factores influyen en una mala calidad de voz? Café, tabaco, alcohol, bebidas con gas, etc.
+
+3. Escribir ideas de cómo responder la pregunta global del investigador.
 
 ## Análisis
 
-En la lectura y limpieza de datos se ha creado la columna `VHI` que indica la calidad de voz del individuo.
+En la lectura y limpieza de datos se ha creado la columna `VHI` que indica la calidad de voz. Es un índice que va de 0 a 30. A mayor puntuación, menor calidad de la voz.
 
-El objetivo 2 se trata de comparar una variable cuantitativa y una cualitativa con 4 factores en repetidas ocasiones.
+Nuestro objetivo es determinar qué factores (café, tabaco, alcohol, bebidas con gas) influyen en una mala calidad de voz.
 
-Cruzamos una variable cuantitativa (VHI) con una cualitativa (café, tabaco, alchol, bebidas con gas). Usamos boxplot.
+Cruzamos una variable cuantitativa (VHI) con una variable categórica (café, tabaco, alcohol, bebidas con gas). 
+
+Usamos gráficos de `boxplot` para visualizar la información.
 
 ### Café
 
-Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: "Mai", "Menys de dos cops per setmana", "Ocasionalment" y "Diàriament". Visualizamos las respuestas.
+Se les pregunta a los individuos si consumen café. Pueden responder: "Mai", "Menys de dos cops per setmana", "Ocasionalment" y "Diàriament". 
 
 ```{r, output =TRUE}
 data$cafe <- factor(data$cafe, levels=c("Mai","Menys de dos cops per setmana","Ocasionalment","Diàriament"),labels = c("Mai","<2 cops per setmana","Ocasionalment","Diàriament"))
@@ -176,7 +180,7 @@ Repetiriamos un proceso análogo en el resto de casos (tabaco, alcohol, bebidas 
 
 ### Tabaco
 
-Se pregunta a los individuos con qué frecuencia consumen tabaco. Pueden responder: "No","Anteriorment (exfumador)","Ocasionalment","Diariament". 
+Se pregunta a los individuos si consumen tabaco. Pueden responder: "No", "Anteriorment (exfumador)", "Ocasionalment" y "Diariament". 
 
 ```{r, output =TRUE}
 data$tabaco <- factor(data$tabaco, levels=c("No","Anteriorment (exfumador)","Ocasionalment","Diariament"))
@@ -196,9 +200,9 @@ No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así
 
 Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques. 
 
-Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: normalidad y homocedasticidad (homogeneidad variancia).
+Verificamos primero si los datos cumplen los supuestos de un análisis paramétrico, que son: normalidad y homocedasticidad (homogeneidad variancia).
 
-Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk.
+Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk para la normalidad.
 
 Hacemos el test para cada nivel:
 ```{r, output=TRUE}
@@ -215,7 +219,7 @@ shapiro.test(data$VHI[data$tabaco=="Ocasionalment"])
 ```
 
 Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test), no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
-Utilizaremos el test de Kruskal_Wallis
+Utilizaremos el test de Kruskal-Wallis
 ```{r, output=TRUE}
 kruskal.test(VHI~tabaco, data)
 ```
@@ -224,7 +228,7 @@ Según este test, no podemos inferir que la calidad de la voz se vea afectada po
 
 ### Alcohol
 
-Se les pregunta a los individuos con qué frecuencia consumen alcohol. Pueden responder: "No", "Ocasionalmente", "Semanalmente" y "Diariamente". 
+Se les pregunta a los individuos si consumen alcohol. Pueden responder: "No", "Ocasionalmente", "Semanalmente" y "Diariamente". 
 
 ```{r, output =TRUE}
 data$alcohol <- factor(data$alcohol, levels=c("No","Ocasionalment","Setmanalment","Diariament"))
@@ -244,9 +248,9 @@ No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así
 
 Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques. 
 
-Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: normalidad y homocedasticidad (homogeneidad variancia).
+Verificamos primero si los datos cumplen los supuestos de un análisis paramétrico, que son: normalidad y homocedasticidad (homogeneidad variancia).
 
-Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk.
+Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk para la normalidad.
 
 Hacemos el test para cada nivel:
 ```{r,output=TRUE}
@@ -262,7 +266,7 @@ shapiro.test(data$VHI[data$alcohol=="Setmanalment"])
 shapiro.test(data$VHI[data$alcohol=="Diariament"])
 ```
 
-Vemos que hay niveles que no siguen una distrubución normal (hay p-valores menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
+Vemos que hay niveles que no siguen una distrubución normal (hay p-valores menores a 0.05 según el test). No podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
 
 Utilizaremos el test de Kruskal_Wallis.
 ```{r, output=TRUE}
@@ -273,7 +277,7 @@ Según este test, no podemos inferir que la calidad de la voz se vea afectada po
 
 ### Bebidas con gas
 
-Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: "Mai", "Menys de dos cops per setmana", "Ocasionalment" y "Diàriamente".
+Se les pregunta a los individuos si consumen bebidas con gas. Pueden responder: "Mai", "Menys de dos cops per setmana", "Ocasionalment" y "Diàriamente".
 
 ```{r, output =TRUE}
 data$bebida_gas <- factor(data$bebida_gas, levels=c("Mai","Menys de dos cops per setmana","Ocasionalment","Diàriament"),labels = c("Mai","<2 cops per setmana","Ocasionalment","Diàriament"))
@@ -309,6 +313,46 @@ kruskal.test(VHI~bebida_gas, data)
 
 Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de bebidas con gas (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).
 
+### Pregunta global
+
+El investigador plantea una pregunta global: "¿La formación en voz influye en la percepción de calidad de la misma?"
+
+Para responderla, hemos revisado la encuesta y seleccionado la cuestión que más relación tiene con la formación en voz.
+
+Se pregunta a los individuos si tienen formación sobre salud vocal.
+
+Esta pregunta corresponde a la variable `formacion_voz`. Es una variabla categórica, un factor. Las posibles respuestas a la pregunta "Té formació sobre salut vocal?" son:
+
+- "No, mai he fet cap formació"
+- "Sí, vaig fer un curs fa temps"
+- "He hagut de fer sessions de rehabilitació vocal (logopèdia)"
+- "He fet la formació Com puc cuidar la meva veu impartida pel Servei de Prevenció"
+- "He fet formació vocal pel meu compte"
+- "Otro: ___"
+
+Buscamos la relación entre la formación de la voz y la calidad de la voz, dada por el índice `VHI`. Por tanto, cruzamos una variable cuantitativa (`VHI`) con una variable categórica (`formacion_voz`). Podríamos representarlo gráficamente con un `boxplot` o gráfico de violín, este último tal vez resulte más claro a la vista.
+
+Primero habría que limpiar los niveles del factor, haciendo los agrupamientos adecuados, dado que son:
+
+```{r, output=TRUE}
+levels(data$formacion_voz)
+```
+Entonces podríamos ver el gráfico de violín que corresponde. La idea del `chunk` es la siguiente.
+
+```{r, eval=FALSE, echo=TRUE}
+ggplot(data, aes(x = formacion_voz, y = VHI, fill = formacion_voz)) +
+  geom_violin() +
+  labs(x = "Formación voz", y = "VHI", title = "Comparación de VHI según formación de voz") +
+  theme_minimal()
+```
+
+Intentaríamos describir el gráfico pero si las cajas de violín de solapan no podremos decir gran cosa.
+
+Para la prueba inferencial, si se pudiese aplicar, pensaríamos en el ANOVA siguiendo un razonamiento análogo al que hemos usado en cada factor de la pregunta 4.
+
 ## Conclusiones
 
-En conclusión, según nuestro análisis el consumo de café, tabaco, alcohol y bebidas con gas no afecta en la calidad de la voz.
+En conclusión, según nuestro análisis el consumo de café, tabaco, alcohol o bebidas con gas no afecta en la calidad de la voz. 
+
+Y la idea para analizar si la formación en voz influye en la calidad de voz es cruzar las variables `VHI` y `formacion_voz` con un gráfico de violín e intentar aplicar una ANOVA para la prueba inferencial, si se puede.
+

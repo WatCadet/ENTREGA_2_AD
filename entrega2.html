@@ -9,7 +9,7 @@
 <meta name="author" content="Carlos Aliño">
 <meta name="author" content="Dídac Capó">
 <meta name="author" content="Irene Rodríguez">
-<meta name="dcterms.date" content="2024-10-09">
+<meta name="dcterms.date" content="2024-10-11">
 
 <title>Síntomas vocales en profesores</title>
 <style>
@@ -23,6 +23,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -57,6 +91,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#tabaco" id="toc-tabaco" class="nav-link" data-scroll-target="#tabaco">Tabaco</a></li>
   <li><a href="#alcohol" id="toc-alcohol" class="nav-link" data-scroll-target="#alcohol">Alcohol</a></li>
   <li><a href="#bebidas-con-gas" id="toc-bebidas-con-gas" class="nav-link" data-scroll-target="#bebidas-con-gas">Bebidas con gas</a></li>
+  <li><a href="#pregunta-global" id="toc-pregunta-global" class="nav-link" data-scroll-target="#pregunta-global">Pregunta global</a></li>
   </ul></li>
   <li><a href="#conclusiones" id="toc-conclusiones" class="nav-link" data-scroll-target="#conclusiones">Conclusiones</a></li>
   </ul>
@@ -86,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 9, 2024</p>
+      <p class="date">October 11, 2024</p>
     </div>
   </div>
   
@@ -147,17 +182,19 @@ $ VHI                      &lt;dbl&gt; 0, 8, 6, 8, 27, 15, 14, 4, 10, 7, 1, 2, 8
 <h2 class="anchored" data-anchor-id="objetivos">Objetivos</h2>
 <ol type="1">
 <li><p>Obtener la columna con la variable numérica VHI que indica la calidad de la voz.</p></li>
-<li><p>Pregunta 4. ¿Qué factores influyen en una mala calidad de voz? Café, tabaco, alcohol, bebidas con gas, etc.</p></li>
+<li><p>Responder a la Pregunta 4. ¿Qué factores influyen en una mala calidad de voz? Café, tabaco, alcohol, bebidas con gas, etc.</p></li>
+<li><p>Escribir ideas de cómo responder la pregunta global del investigador.</p></li>
 </ol>
 </section>
 <section id="análisis" class="level2">
 <h2 class="anchored" data-anchor-id="análisis">Análisis</h2>
-<p>En la lectura y limpieza de datos se ha creado la columna <code>VHI</code> que indica la calidad de voz del individuo.</p>
-<p>El objetivo 2 se trata de comparar una variable cuantitativa y una cualitativa con 4 factores en repetidas ocasiones.</p>
-<p>Cruzamos una variable cuantitativa (VHI) con una cualitativa (café, tabaco, alchol, bebidas con gas). Usamos boxplot.</p>
+<p>En la lectura y limpieza de datos se ha creado la columna <code>VHI</code> que indica la calidad de voz. Es un índice que va de 0 a 30. A mayor puntuación, menor calidad de la voz.</p>
+<p>Nuestro objetivo es determinar qué factores (café, tabaco, alcohol, bebidas con gas) influyen en una mala calidad de voz.</p>
+<p>Cruzamos una variable cuantitativa (VHI) con una variable categórica (café, tabaco, alcohol, bebidas con gas).</p>
+<p>Usamos gráficos de <code>boxplot</code> para visualizar la información.</p>
 <section id="café" class="level3">
 <h3 class="anchored" data-anchor-id="café">Café</h3>
-<p>Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: “Mai”, “Menys de dos cops per setmana”, “Ocasionalment” y “Diàriament”. Visualizamos las respuestas.</p>
+<p>Se les pregunta a los individuos si consumen café. Pueden responder: “Mai”, “Menys de dos cops per setmana”, “Ocasionalment” y “Diàriament”.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -196,7 +233,7 @@ Kruskal-Wallis chi-squared = 2.5145, df = 3, p-value = 0.4727</code></pre>
 </section>
 <section id="tabaco" class="level3">
 <h3 class="anchored" data-anchor-id="tabaco">Tabaco</h3>
-<p>Se pregunta a los individuos con qué frecuencia consumen tabaco. Pueden responder: “No”,“Anteriorment (exfumador)”,“Ocasionalment”,“Diariament”.</p>
+<p>Se pregunta a los individuos si consumen tabaco. Pueden responder: “No”, “Anteriorment (exfumador)”, “Ocasionalment” y “Diariament”.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -208,8 +245,8 @@ Kruskal-Wallis chi-squared = 2.5145, df = 3, p-value = 0.4727</code></pre>
 </div>
 <p>No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.</p>
 <p>Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques.</p>
-<p>Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: normalidad y homocedasticidad (homogeneidad variancia).</p>
-<p>Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk.</p>
+<p>Verificamos primero si los datos cumplen los supuestos de un análisis paramétrico, que son: normalidad y homocedasticidad (homogeneidad variancia).</p>
+<p>Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk para la normalidad.</p>
 <p>Hacemos el test para cada nivel:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -247,7 +284,7 @@ data:  data$VHI[data$tabaco == "Ocasionalment"]
 W = 0.84322, p-value = 0.01799</code></pre>
 </div>
 </div>
-<p>Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test), no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico: Utilizaremos el test de Kruskal_Wallis</p>
+<p>Vemos que hay niveles que no siguen un distrubución normal (hay p-valores menores a 0.05 según el test), no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico: Utilizaremos el test de Kruskal-Wallis</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -261,7 +298,7 @@ Kruskal-Wallis chi-squared = 0.71362, df = 3, p-value = 0.87</code></pre>
 </section>
 <section id="alcohol" class="level3">
 <h3 class="anchored" data-anchor-id="alcohol">Alcohol</h3>
-<p>Se les pregunta a los individuos con qué frecuencia consumen alcohol. Pueden responder: “No”, “Ocasionalmente”, “Semanalmente” y “Diariamente”.</p>
+<p>Se les pregunta a los individuos si consumen alcohol. Pueden responder: “No”, “Ocasionalmente”, “Semanalmente” y “Diariamente”.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -273,8 +310,8 @@ Kruskal-Wallis chi-squared = 0.71362, df = 3, p-value = 0.87</code></pre>
 </div>
 <p>No hay una diferencia clara a simple vista, ya que las cajas se superponen. Así que no podemos extraer conclusiones significativas del gráfico.</p>
 <p>Estudiemos si podemos aplicar una prueba inferencial como el ANOVA de bloques.</p>
-<p>Verificamos primero si los datos cumplen los supuestos de un análisis parametrico, que son: normalidad y homocedasticidad (homogeneidad variancia).</p>
-<p>Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk.</p>
+<p>Verificamos primero si los datos cumplen los supuestos de un análisis paramétrico, que son: normalidad y homocedasticidad (homogeneidad variancia).</p>
+<p>Como hay observaciones suficientes utilizamos la prueba de Shapiro-Wilk para la normalidad.</p>
 <p>Hacemos el test para cada nivel:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -312,7 +349,7 @@ data:  data$VHI[data$alcohol == "Diariament"]
 W = 0.99725, p-value = 0.8999</code></pre>
 </div>
 </div>
-<p>Vemos que hay niveles que no siguen una distrubución normal (hay p-valores menores a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:</p>
+<p>Vemos que hay niveles que no siguen una distrubución normal (hay p-valores menores a 0.05 según el test). No podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:</p>
 <p>Utilizaremos el test de Kruskal_Wallis.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -327,7 +364,7 @@ Kruskal-Wallis chi-squared = 2.9649, df = 3, p-value = 0.3971</code></pre>
 </section>
 <section id="bebidas-con-gas" class="level3">
 <h3 class="anchored" data-anchor-id="bebidas-con-gas">Bebidas con gas</h3>
-<p>Se les pregunta a los individuos con qué frecuencia consumen bebidas con gas. Pueden responder: “Mai”, “Menys de dos cops per setmana”, “Ocasionalment” y “Diàriamente”.</p>
+<p>Se les pregunta a los individuos si consumen bebidas con gas. Pueden responder: “Mai”, “Menys de dos cops per setmana”, “Ocasionalment” y “Diàriamente”.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -363,10 +400,50 @@ Kruskal-Wallis chi-squared = 4.0487, df = 3, p-value = 0.2563</code></pre>
 </div>
 <p>Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de bebidas con gas (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).</p>
 </section>
+<section id="pregunta-global" class="level3">
+<h3 class="anchored" data-anchor-id="pregunta-global">Pregunta global</h3>
+<p>El investigador plantea una pregunta global: “¿La formación en voz influye en la percepción de calidad de la misma?”</p>
+<p>Para responderla, hemos revisado la encuesta y seleccionado la cuestión que más relación tiene con la formación en voz.</p>
+<p>Se pregunta a los individuos si tienen formación sobre salud vocal.</p>
+<p>Esta pregunta corresponde a la variable <code>formacion_voz</code>. Es una variabla categórica, un factor. Las posibles respuestas a la pregunta “Té formació sobre salut vocal?” son:</p>
+<ul>
+<li>“No, mai he fet cap formació”</li>
+<li>“Sí, vaig fer un curs fa temps”</li>
+<li>“He hagut de fer sessions de rehabilitació vocal (logopèdia)”</li>
+<li>“He fet la formació Com puc cuidar la meva veu impartida pel Servei de Prevenció”</li>
+<li>“He fet formació vocal pel meu compte”</li>
+<li>“Otro: ___”</li>
+</ul>
+<p>Buscamos la relación entre la formación de la voz y la calidad de la voz, dada por el índice <code>VHI</code>. Por tanto, cruzamos una variable cuantitativa (<code>VHI</code>) con una variable categórica (<code>formacion_voz</code>). Podríamos representarlo gráficamente con un <code>boxplot</code> o gráfico de violín, este último tal vez resulte más claro a la vista.</p>
+<p>Primero habría que limpiar los niveles del factor, haciendo los agrupamientos adecuados, dado que son:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Aquest curs farem la formació de la veu impartida pel Servei de Prevenció "               
+[2] "He fet algun curs de cant"                                                                
+[3] "He fet formació vocal pel meu compte"                                                     
+[4] "He fet la formació Com puc cuidar la meva veu impartida pel Servei de Prevenció"          
+[5] "He fet sessions amb logopeda fa anys j el curs de com puc cuidar la meva veu l'any passat"
+[6] "He hagut de fer sessions de rehabilitació vocal (logopèdia)"                              
+[7] "No, mai he fet cap formació"                                                              
+[8] "Si tenc Formació"                                                                         
+[9] "Si, vaig fer un curs fa temps"                                                            </code></pre>
+</div>
+</div>
+<p>Entonces podríamos ver el gráfico de violín que corresponde. La idea del <code>chunk</code> es la siguiente.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> formacion_voz, <span class="at">y =</span> VHI, <span class="at">fill =</span> formacion_voz)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Formación voz"</span>, <span class="at">y =</span> <span class="st">"VHI"</span>, <span class="at">title =</span> <span class="st">"Comparación de VHI según formación de voz"</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Intentaríamos describir el gráfico pero si las cajas de violín de solapan no podremos decir gran cosa.</p>
+<p>Para la prueba inferencial, si se pudiese aplicar, pensaríamos en el ANOVA siguiendo un razonamiento análogo al que hemos usado en cada factor de la pregunta 4.</p>
+</section>
 </section>
 <section id="conclusiones" class="level2">
 <h2 class="anchored" data-anchor-id="conclusiones">Conclusiones</h2>
-<p>En conclusión, según nuestro análisis el consumo de café, tabaco, alcohol y bebidas con gas no afecta en la calidad de la voz.</p>
+<p>En conclusión, según nuestro análisis el consumo de café, tabaco, alcohol o bebidas con gas no afecta en la calidad de la voz.</p>
+<p>Y la idea para analizar si la formación en voz influye en la calidad de voz es cruzar las variables <code>VHI</code> y <code>formacion_voz</code> con un gráfico de violín e intentar aplicar una ANOVA para la prueba inferencial, si se puede.</p>
 </section>
 
 </main>
