@@ -9,7 +9,7 @@
 <meta name="author" content="Carlos Aliño">
 <meta name="author" content="Dídac Capó">
 <meta name="author" content="Irene Rodríguez">
-<meta name="dcterms.date" content="2024-10-11">
+<meta name="dcterms.date" content="2024-10-16">
 
 <title>Síntomas vocales en profesores</title>
 <style>
@@ -121,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 11, 2024</p>
+      <p class="date">October 16, 2024</p>
     </div>
   </div>
   
@@ -383,8 +383,8 @@ Kruskal-Wallis chi-squared = 2.9649, df = 3, p-value = 0.3971</code></pre>
 <pre><code>
     Shapiro-Wilk normality test
 
-data:  data$VHI[data$alcohol == "Ocasionalment"]
-W = 0.86583, p-value = 3.415e-07</code></pre>
+data:  data$VHI[data$bebida_gas == "Ocasionalment"]
+W = 0.90507, p-value = 1.83e-06</code></pre>
 </div>
 </div>
 <p>Vemos que hay un nivel que no sigue una distrubución normal (el p-valor es menor a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:</p>
