@@ -273,7 +273,7 @@ Utilizaremos el test de Kruskal_Wallis.
 kruskal.test(VHI~alcohol, data)
 ```
 
-Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de tabaco (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).
+Según este test, no podemos inferir que la calidad de la voz se vea afectada por la frecuencia de consumo de alcohol (el test nos dice que la calidad de voz media es igual para todos los niveles consumo).
 
 ### Bebidas con gas
 
