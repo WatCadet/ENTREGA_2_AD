@@ -301,7 +301,7 @@ Verificamos primero si los datos cumplen los supuestos de un análisis parametri
 
 Como hay niveles que no tienen suficientes observaciones, comprobemos si el nivel que tiene suficientes observaciones distribuye normal con la prueba de Shapiro-Wilk.
 ```{r, output=TRUE}
-shapiro.test(data$VHI[data$alcohol=="Ocasionalment"])
+shapiro.test(data$VHI[data$bebida_gas=="Ocasionalment"])
 ```
 
 Vemos que hay un nivel que no sigue una distrubución normal (el p-valor es menor a 0.05 según el test) no podemos aplicar una ANOVA. Entonces tendremos que utilizar un test no paramétrico:
